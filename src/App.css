@@ -1,0 +1,67 @@
+.App-header {
+  background-color: #282c34;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+.Employee-list{
+  width: 100%;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.btn-space {
+  margin-left: 10px; 
+}
+.hide{
+  display: none;
+}
+
+.fadeOut{
+  opacity:0;
+  width:0;
+  height:0;
+  transition: width 0.5s 0.5s, height 0.5s 0.5s, opacity 0.5s;
+
+}
+.fadeIn{
+  opacity:1;
+  width:100%;
+  height:auto;
+  transition: width 0.5s, height 0.5s, opacity 0.5s 0.5s;
+
+}
+.form {
+  width:60%;
+}
+.container {
+  margin-top:30px;
+}
+
+.div-center {
+  margin: 0 auto;
+  margin-top: 15%;
+}
+.logo, .logo:hover{
+    color:#fff;
+    font-weight: bold;
+    text-decoration: none;
+}
+.mrgn-left20{
+  margin-left: 20px;
+}
