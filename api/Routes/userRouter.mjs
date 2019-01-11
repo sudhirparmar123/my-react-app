@@ -7,9 +7,22 @@ import config from '../config/config';
 
 userRouter
     .post('/login', (req, res) => {
-        let password = crypto.createHash('md5').update(req.body.password).digest("hex");
-        let username = req.body.username;
-        User.find({ username: req.body.username, password: password }, (err, user) => {
+        let password = req.body.password.trim();
+        let username = req.body.username.trim();
+        let passwordMD5 = crypto.createHash('md5').update(password).digest("hex");
+
+        let errorMessage='';
+        //check if username or password is incorrect
+        if(username.trim()==='' || password.trim()===''){
+            errorMessage = 'Username and Password can not be blank';
+            return res.status(200).send({
+                success: false,
+                message: errorMessage
+            });
+        }
+
+        //call mongoose find method after validation
+        User.find({ username: username, password: passwordMD5 }, (err, user) => {
             if (user.length > 0) {
                 let token = jwt.sign({ username: username },
                     config.secret,
@@ -23,9 +36,9 @@ userRouter
                     token: token
                 });
             } else {
-                res.status(401).send({
+                res.status(200).send({
                     success: false,
-                    message: 'Incorrect username or password'
+                    message: 'Wrong username or password!'
                 });
             }
         })

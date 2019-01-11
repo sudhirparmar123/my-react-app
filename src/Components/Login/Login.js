@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import api from '../../Modules/api.js';
 import { withRouter } from 'react-router';
+import { ToastStore } from 'react-toasts';
 
 class Login extends Component {
     constructor(props) {
@@ -29,9 +30,10 @@ class Login extends Component {
                     sessionStorage.token = response.data.token;
                     this.props.history.push(`/employee/list`)
                 } else {
-                    console.log('wrong usernama and password')
-                    //will set a message here
+                    ToastStore.error(responseData.message)
                 }
+            }).catch(error => {
+                console.log(error)
             });
     }
 
