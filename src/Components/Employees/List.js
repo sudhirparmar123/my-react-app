@@ -53,6 +53,7 @@ class List extends Component {
 
     render() {
         return (
+            
             <div className="container">
                 <div className="card">
                     <div className="card-header"><i className="fa fa-align-justify"></i><strong>All Employees</strong></div>
@@ -60,14 +61,21 @@ class List extends Component {
                         <div className="col-md-12">
                             <div className="row">
                                 <div className="table-responsive">
-                                    <table className="table Employee-list">
-                                        <tbody>
+                                    <table className="table Employee-list table-bordered">
+                                        
+                                        <thead>
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Name</th>
                                                 <th>Email</th>
+                                                <th>Age</th>
+                                                <th>Gender</th>
+                                                <th>Title</th>
+                                                <th>Department</th>
                                                 <th>Actions</th>
                                             </tr>
+                                            </thead>
+                                            <tbody>
                                             {
                                                 this.props.employees.map((Emp) => {
                                                     return (
@@ -75,6 +83,10 @@ class List extends Component {
                                                             <td>{Emp._id}</td>
                                                             <td>{Emp.name}</td>
                                                             <td>{Emp.email}</td>
+                                                            <td>{Emp.age}</td>
+                                                            <td>{Emp.gender==1?'Male':'Female'}</td>
+                                                            <td>{Emp.title}</td>
+                                                            <td>{Emp.department}</td>
                                                             <td>
                                                                 <div>
                                                                     <button className="btn btn-default btn-sm btn-space" onClick={() => this.deleteEmployee(Emp._id)}>Delete</button>

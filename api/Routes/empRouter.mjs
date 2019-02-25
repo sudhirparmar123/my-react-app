@@ -19,7 +19,15 @@ empRouter
 
 //This api will add/update data of an employee in Database
 .post('/', (req, res) => {
-    let employee = new Employee({name: req.body.name, email: req.body.email, status:true});
+    let employee = new Employee({
+        name: req.body.name, 
+        email: req.body.email, 
+        status:true,
+        gender: req.body.gender,
+        title: req.body.title,
+        age: req.body.age,
+        department: req.body.department
+    });
     employee.save(
         function(error){
             if(error!==null) {
@@ -42,20 +50,29 @@ empRouter
 
 .put('/', (req, res) => {
     if(req.body.id){
-        let employee = new Employee({name: req.body.name, email: req.body.email, status:true});
+        let employee = new Employee({name: req.body.name, 
+            email: req.body.email, 
+            status:true,
+            gender: req.body.gender,
+            title: req.body.title,
+            age: req.body.age,
+            department: req.body.department});
         Employee.findById(req.body.id, (err, emp) => {
             emp.name = req.body.name;
             emp.email = req.body.email;
+            age.age = req.body.age;
+            emp.title = req.body.title;
+            emp.gender = req.body.gender;
+            emp.department = req.body.department;
             emp.save(
                 function(error){
+                    //console.log(error)
                     if(error!==null) {
-                        assert.equal(error.errors['name'].message,
-                        'Path `name` is required.');
-                        error = employee.validateSync();
-                        assert.equal(error.errors['name'].message,
-                            'Path `name` is required.');
+                        //error = employee.validateSync();
+                        // assert.equal(errors['name'].message,
+                        //     'Path `name` is required.');
                             res.data.type='error';
-                            res.data.message=error.message;
+                            res.data.message=error;
                         res.status(500).send(res.data);
                     } else {
                         res.status(201).send(emp)

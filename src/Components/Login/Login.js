@@ -3,6 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import api from '../../Modules/api.js';
 import { withRouter } from 'react-router';
 import { ToastStore } from 'react-toasts';
+import Particles from 'react-particles-js';
+import  * as config  from "../../ParticleConfig";
 
 class Login extends Component {
     constructor(props) {
@@ -13,11 +15,48 @@ class Login extends Component {
             disableLoginBtn: true,
             invalidForm: false,
             username: '',
-            password: ''
+            password: '',
+            errors:{}
         }
     }
 
-    loginUser = () => {
+    validateForm() {
+        let fields = this.state;
+        let errors = {};
+        let formIsValid = true;
+        
+        if (!fields["username"] || fields["username"]==='') {
+          formIsValid = false;
+          errors.username = "*Please enter your username.";
+        }
+  
+        if (fields["username"] !== undefined) {
+          if (!fields["username"].match(/^[a-zA-Z ]*$/)) {
+            formIsValid = false;
+            errors.username = "*Please enter alphabet characters only.";
+          }
+        }
+   
+        if (!fields["password"] || fields["password"]==='') {
+          formIsValid = false;
+          errors.password = "*Please enter your password.";
+        }
+  
+        this.setState({
+          errors: errors
+        });
+        return formIsValid; 
+      }
+
+
+    loginUser(e) {
+        e.preventDefault();
+        let isFromValid = this.validateForm();
+
+        if(!isFromValid){
+            return;
+        }
+
         let data = {
             username: this.state.username,
             password: this.state.password
@@ -33,7 +72,7 @@ class Login extends Component {
                     ToastStore.error(responseData.message)
                 }
             }).catch(error => {
-                console.log(error)
+                ToastStore.error(error.response.data.message)
             });
     }
 
@@ -45,32 +84,36 @@ class Login extends Component {
     render() {
         return (
             <div className="container">
+                <Particles config={config}/>
                 <div className="row">
                     <div className="col-md-6 div-center">
                         <div className="card">
                             <div className="card-header">
                                 <strong>Login</strong>
                             </div>
-                            <div className="card-body">
-                                <form className="form-horizontal" action="" method="post">
+                            <form className="form-horizontal" action="" onSubmit={(event) => this.loginUser(event)} method="post">
+                                <div className="card-body">
                                     <div className="form-group row">
                                         <label className="col-md-3 col-form-label" htmlFor="hf-email">Email</label>
                                         <div className="col-md-9">
                                             <input className="form-control" id="hf-email" value={this.state.username || ''} type="text" name="username" onChange={(event) => this.handleUserInput(event)} placeholder="Enter Email.." />
+                                            <span className="text-danger">{this.state.errors.username}</span>
                                         </div>
                                     </div>
                                     <div className="form-group row">
                                         <label className="col-md-3 col-form-label" htmlFor="hf-password">Password</label>
                                         <div className="col-md-9">
                                             <input className="form-control" id="hf-password" value={this.state.password || ''} type="password" name="password" onChange={(event) => this.handleUserInput(event)} placeholder="Enter Password.." />
+                                            <span className="text-danger">{this.state.errors.password}</span>
                                         </div>
                                     </div>
-                                </form>
-                            </div>
-                            <div className="card-footer">
-                                <button className="btn btn-sm btn-primary" onClick={() => this.loginUser()} type="submit">
-                                    <i className="fa fa-dot-circle-o"></i> Submit</button>
-                            </div>
+                                </div>
+
+                                <div className="card-footer">
+                                    <button className="btn btn-sm btn-primary" type="submit">
+                                        <i className="fa fa-dot-circle-o"></i> Submit</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
