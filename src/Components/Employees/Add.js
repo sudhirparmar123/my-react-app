@@ -78,13 +78,13 @@ class Add extends Component{
             errors.name = "*Please enter name of the employee.";
         }
 
-        if (fields["name"] !== undefined) {
-            let reg = /^[a-zA-Z ]*$/;
-            if (!reg.test(fields["name"])) {
-                formIsValid = false;
-                errors.name = "*Please enter alphabet characters only.";
-            }
-        }
+        // if (fields["name"] !== undefined) {
+        //     let reg = /^[a-zA-Z ]*$/;
+        //     if (!reg.test(fields["name"])) {
+        //         formIsValid = false;
+        //         errors.name = "*Please enter alphabet characters only.";
+        //     }
+        // }
 
         if (!fields["email"] || fields["email"]==='') {
           formIsValid = false;
@@ -92,7 +92,7 @@ class Add extends Component{
         }
 
         if (fields["email"]!=='') {
-            var re = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+            var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
             if(!re.test(fields["email"])){
                 formIsValid = false;
                 errors.email = "*Please enter valid email address.";

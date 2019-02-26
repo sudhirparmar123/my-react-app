@@ -8,6 +8,16 @@ const initialState = {
 // reducer takes tow paramteres state and the action
 const reducer = (state=initialState,action)=>{
     switch (action.type) {
+        case actionTypes.LOADING_EMP:   //loading state
+            return {
+                ...state,
+                LoadingEmployee:true
+            }
+        case actionTypes.LOADED_EMP:   //Loaded state
+            return {
+                ...state,
+                LoadingEmployee:false
+            }
         case actionTypes.GET_EMP:
             return {
                 ...state,

@@ -60,7 +60,7 @@ empRouter
         Employee.findById(req.body.id, (err, emp) => {
             emp.name = req.body.name;
             emp.email = req.body.email;
-            age.age = req.body.age;
+            emp.age = req.body.age;
             emp.title = req.body.title;
             emp.gender = req.body.gender;
             emp.department = req.body.department;

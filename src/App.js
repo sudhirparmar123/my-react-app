@@ -6,7 +6,6 @@ import Login from './Components/Login/Login';
 import Header from './Components/Common/Header';
 import AddEmployee from './Components/Employees/Add';
 import EmployeeList from './Components/Employees/List';
-import SVGtest from './SVGtest/SVGtest';
 import PrivateRoute from './Components/Common/PrivateRoute';
 import {ToastContainer, ToastStore} from 'react-toasts';
 
@@ -34,7 +33,6 @@ class App extends Component {
           <PrivateRoute exact path="/employee/list" component={EmployeeList}/>
           <PrivateRoute exact path="/employee/add" component={AddEmployee}/>
           <PrivateRoute exact path="/employee/edit/:id" component={AddEmployee}/>
-          <PrivateRoute exact path="/svgtest" component={SVGtest}/>
           <Redirect to="/employee/list" />
         </Switch> 
       </div>
